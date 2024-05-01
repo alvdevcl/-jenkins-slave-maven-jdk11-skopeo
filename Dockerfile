@@ -1,4 +1,4 @@
-FROM openshift/jenkins-slave-base-centos7:v3.11
+FROM openshift/base-centos7:latest
 
 MAINTAINER Muhammad Edwin < edwin at redhat dot com >
 
