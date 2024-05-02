@@ -24,8 +24,8 @@ jobs:
         with:
           # list of Docker images to use as base name for tags
           images: |
-            name/app
-            ghcr.io/username/app
+            devcloudplatform/jenkins-slave-maven-jdk11-skopeo
+            ghcr.io/alvdevcl/jenkins-slave-maven-jdk11-skopeo
           # generate Docker tags based on the following events/attributes
           tags: |
             type=schedule
