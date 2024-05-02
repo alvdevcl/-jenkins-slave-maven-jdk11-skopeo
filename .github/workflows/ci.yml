@@ -28,22 +28,19 @@ jobs:
       # with sigstore/fulcio when running outside of PRs.
       id-token: write
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - uses: rickstaa/action-create-tag@v1
-        id: "tag_create"
+      - uses: actions/checkout@v4
+      - name: Bump version and push tag
+        id: tag_version
+        uses: mathieudutour/github-tag-action@v6.2
         with:
-          tag: "latest"
-          tag_exists_error: false
-          message: "Latest release"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create a GitHub release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: ${{ steps.tag_version.outputs.new_tag }}
+          name: Release ${{ steps.tag_version.outputs.new_tag }}
+          body: ${{ steps.tag_version.outputs.changelog }}
 
-      # Print result using the env variable.
-      - run: |
-        echo "Tag already present: ${{ env.TAG_EXISTS }}"
-
-      # Print result using the action output.
-      - run: |
-        echo "Tag already present: ${{ steps.tag_create.outputs.tag_exists }}"
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v5
