@@ -1,5 +1,5 @@
 
-Name: Semver
+name: Semver Docker Image
 on:
   push:
     branches: [ "main" ]
