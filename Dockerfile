@@ -1,5 +1,4 @@
-FROM quay.io/openshift/origin-jenkins-agent-base:4.9.0
-
+FROM fabric8/jenkins-slave-base-centos7:vc9cba3c
 MAINTAINER Muhammad Edwin < edwin at redhat dot com >
 
 
