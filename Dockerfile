@@ -20,6 +20,8 @@ RUN curl -L --output /tmp/jdk.tar.gz https://download.java.net/java/GA/jdk11/9/G
     update-alternatives --install /usr/bin/java java /usr/lib/jvm/jdk-11.0.2/bin/java 20000 --family java-1.11-openjdk.x86_64 && \
     update-alternatives --set java /usr/lib/jvm/jdk-11.0.2/bin/java
 
+# Update and install file command
+RUN yum install -y file
 	
 # Install Maven
 RUN curl -k -L --output /tmp/apache-maven-bin.zip https://www-eu.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.zip && \
