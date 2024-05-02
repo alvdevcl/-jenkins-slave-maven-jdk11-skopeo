@@ -23,10 +23,10 @@ RUN curl -L --output /tmp/jdk.tar.gz https://download.java.net/java/GA/jdk11/9/G
 RUN yum install -y file
 	
 # Install Maven
-RUN curl -L --output /tmp/apache-maven-bin.tar.gz  https://www-eu.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz && \
-    tar zxf /tmp/apache-maven-bin.tar.gz -C /opt && \
+RUN curl -L --output /tmp/apache-maven-bin.zip  https://dlcdn.apache.org/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.zip && \
+    unzip -q /tmp/apache-maven-bin.zip -d /opt && \
     ln -s /opt/apache-maven-${MAVEN_VERSION} /opt/maven && \
-    rm /tmp/apache-maven-bin.tar.gz && \
+    rm /tmp/apache-maven-bin.zip && \
     mkdir -p $HOME/.m2
 
 
