@@ -1,4 +1,4 @@
-FROM openshift/base-centos7:latest
+FROM quay.io/openshift/origin-jenkins-agent-base:4.9.0
 
 MAINTAINER Muhammad Edwin < edwin at redhat dot com >
 
@@ -24,8 +24,7 @@ RUN curl -L --output /tmp/jdk.tar.gz https://download.java.net/java/GA/jdk11/9/G
 RUN yum install -y file
 	
 # Install Maven
-RUN curl -k -L --output /tmp/apache-maven-bin.zip https://www-eu.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.zip && \
-    file /tmp/apache-maven-bin.zip && \
+RUN curl -L --output /tmp/apache-maven-bin.zip  https://www-eu.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.zip && \
     unzip -q /tmp/apache-maven-bin.zip -d /opt && \
     ln -s /opt/apache-maven-${MAVEN_VERSION} /opt/maven && \
     rm /tmp/apache-maven-bin.zip && \
