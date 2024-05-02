@@ -30,20 +30,20 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Install GitVersion
-        uses: gittools/actions/gitversion/setup@v0.9.7
+      - uses: rickstaa/action-create-tag@v1
+        id: "tag_create"
         with:
-          versionSpec: '5.x'
-      - name: Determine Version
-        uses: gittools/actions/gitversion/execute@v0.9.7
-      - name: Display SemVer
-        run: |
-          echo "SemVer: $GITVERSION_SEMVER" && echo "$version" && echo "$major.$minor.$patch"
-      - name: Create git tag
-        run: |
-          git tag $GITVERSION_SEMVER
-      - name: Push git tag
-        run: git push origin $GITVERSION_SEMVER
+          tag: "latest"
+          tag_exists_error: false
+          message: "Latest release"
+
+      # Print result using the env variable.
+      - run: |
+        echo "Tag already present: ${{ env.TAG_EXISTS }}"
+
+      # Print result using the action output.
+      - run: |
+        echo "Tag already present: ${{ steps.tag_create.outputs.tag_exists }}"
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v5
