@@ -28,20 +28,22 @@ jobs:
       # with sigstore/fulcio when running outside of PRs.
       id-token: write
     steps:
-      - uses: actions/checkout@v4
-      - name: Bump version and push tag
-        id: tag_version
-        uses: mathieudutour/github-tag-action@v6.2
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Create a GitHub release
-        uses: ncipollo/release-action@v1
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v0.9.7
         with:
-          tag: ${{ steps.tag_version.outputs.new_tag }}
-          name: Release ${{ steps.tag_version.outputs.new_tag }}
-          body: ${{ steps.tag_version.outputs.changelog }}
+          versionSpec: '5.x'
+      - name: Determine Version
+        uses: gittools/actions/gitversion/execute@v0.9.7
+      - name: Display SemVer
+        run: |
+          echo "SemVer: $GITVERSION_SEMVER" && echo "$version" && echo "$major.$minor.$patch"
+      - name: Create git tag
+        run: |
+          git tag $GITVERSION_SEMVER
+      - name: Push git tag
+        run: git push origin $GITVERSION_SEMVER
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v5
