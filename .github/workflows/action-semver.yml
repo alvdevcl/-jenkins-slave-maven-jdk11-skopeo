@@ -1,0 +1,25 @@
+name: Docker Image for GitHub Container Registry
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_and_publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Echo version
+        run: |
+          echo Version is ${{ vars.VERSION }}.${{ github.run_number }}
+      - name: Build and push image
+        run: |
+          docker login --username nielscastle --password ${{ secrets.GHCR_PERSONAL_ACCESS_TOKEN}} ghcr.io
+          docker build . --tag ghcr.io/castleandersen/somerepo:latest --tag ghcr.io/castleandersen/somerepo:${{ vars.VERSION }}.${{     github.run_number }}
+          docker push ghcr.io/castleandersen/somerepo --all-tags
+      - name: Create git tag
+        run: |
+          git tag ${{ vars.VERSION }}.${{ github.run_number }}
+      - name: Push git tag
+        run: git push origin ${{ vars.VERSION }}.${{ github.run_number }}
