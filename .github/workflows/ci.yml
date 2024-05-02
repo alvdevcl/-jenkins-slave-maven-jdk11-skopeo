@@ -40,6 +40,12 @@ jobs:
             ghcr.io/alvdevcl/jenkins-slave-maven-jdk11-skopeo
           # generate Docker tags based on the following events/attributes
           tags: |
+            type=schedule
+            type=ref,event=branch
+            type=ref,event=pr
+            type=sha
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
             type=semver,pattern={{version}}
 
       - name: Set up QEMU
