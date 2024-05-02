@@ -1,3 +1,11 @@
+
+Name: Semver
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+    
 jobs:
   update-semver:
     runs-on: ubuntu-latest
