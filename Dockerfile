@@ -1,4 +1,4 @@
-FROM jenkins/inbound-agent:3206.vb_15dcf73f6a_9-3
+FROM jenkins/inbound-agent:latest-jdk11
 
 ENV MAVEN_VERSION=3.9.6 \
     PATH=$PATH:/opt/maven/bin
