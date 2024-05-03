@@ -7,7 +7,7 @@ ENV JAVA_HOME=/usr/lib/jvm/jdk-11.0.2 \
     PATH=$PATH:$JAVA_HOME/bin
 
 # install skopeo
-RUN yum install skopeo -y && yum clean all
+RUN dnf install skopeo -y && yum clean all
 
 # install java
 RUN curl -L --output /tmp/jdk.tar.gz https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz && \
