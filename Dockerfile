@@ -7,7 +7,7 @@ ENV JAVA_HOME=/usr/lib/jvm/jdk-11.0.2 \
     PATH=$PATH:$JAVA_HOME/bin
 
 # install skopeo
-RUN dnf install skopeo -y && yum clean all
+RUN apt-get -y update && apt-get -y install skopeo
 
 # install java
 RUN curl -L --output /tmp/jdk.tar.gz https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz && \
@@ -17,8 +17,6 @@ RUN curl -L --output /tmp/jdk.tar.gz https://download.java.net/java/GA/jdk11/9/G
     update-alternatives --install /usr/bin/java java /usr/lib/jvm/jdk-11.0.2/bin/java 20000 --family java-1.11-openjdk.x86_64 && \
     update-alternatives --set java /usr/lib/jvm/jdk-11.0.2/bin/java
 
-# Update and install file command
-RUN yum install -y file
 	
 # Install Maven
 RUN curl -L --output /tmp/apache-maven-bin.zip  https://dlcdn.apache.org/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.zip && \
