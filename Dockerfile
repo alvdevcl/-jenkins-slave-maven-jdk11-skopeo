@@ -1,6 +1,4 @@
-FROM fabric8/jenkins-slave-base-centos7:vc9cba3c
-MAINTAINER Muhammad Edwin < edwin at redhat dot com >
-
+FROM jenkins/inbound-agent:latest-jdk11
 
 ENV MAVEN_VERSION=3.9.6 \
     PATH=$PATH:/opt/maven/bin
