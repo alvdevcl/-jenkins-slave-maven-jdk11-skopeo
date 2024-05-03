@@ -25,7 +25,7 @@ jobs:
       
     permissions:
       packages: write
-      contents: read
+      contents: write
       attestations: write
       pages: write
       id-token: write
@@ -45,7 +45,12 @@ jobs:
         with:
           images: devcloudplatform/jenkins-slave-maven-jdk11-skopeo
           tags: type=semver,pattern={{version}}
-
+      - name: Bump Versions
+        uses: anothrNick/github-tag-action@v1 # Don't use @master or @v1 unless you're happy to test the latest version
+        id: bump
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # if you don't want to set write permissions use a PAT token
+          WITH_V: false
       - name: Build and push Docker image
         id: push
         uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
@@ -53,6 +58,6 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: ${{ steps.bump.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
       
