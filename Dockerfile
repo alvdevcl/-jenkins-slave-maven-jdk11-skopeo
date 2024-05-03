@@ -1,4 +1,4 @@
-FROM jenkins/inbound-agent:latest-jdk11
+FROM quay.io/openshift/origin-jenkins-agent-base:4.9.0
 
 ENV MAVEN_VERSION=3.9.6 \
     PATH=$PATH:/opt/maven/bin
