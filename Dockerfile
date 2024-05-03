@@ -1,5 +1,7 @@
 FROM jenkins/agent:jdk11
 
+USER root
+
 ENV MAVEN_VERSION=3.9.6 \
     PATH=$PATH:/opt/maven/bin
 
